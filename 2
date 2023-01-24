@@ -1,6 +1,7 @@
 import requests
 from settings import TOKEN
 
+
 class YaUploader:
     host = 'https://cloud-api.yandex.net/'
 
@@ -24,8 +25,8 @@ class YaUploader:
 
 
 if __name__ == '__main__':
-    path_to_file = r'C:\Users\Радиф\PycharmProjects\HWrequests\copy.json'
-    file_name= 'copy.json'
+    file_name = 'copy.json'
+    path_to_file = 'C:/Users/Радиф/PycharmProjects/HWrequests/' + file_name
     uploader = YaUploader(TOKEN)
     uploader.get_upload_link(file_name)
     uploader.upload(path_to_file)
