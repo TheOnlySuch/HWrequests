@@ -1,0 +1,14 @@
+import requests
+
+intelligence={}
+def the_smartest(name):
+    host='https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api'
+    url='/all.json'
+    response=requests.get(host+url).json()
+    for i in response:
+        if name==i['name']:
+            intelligence[name]=i['powerstats']['intelligence']
+the_smartest('Hulk')
+the_smartest('Captain America')
+the_smartest('Thanos')
+print(max(intelligence, key=intelligence.get))
