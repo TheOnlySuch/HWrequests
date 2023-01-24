@@ -1,0 +1,31 @@
+import requests
+from settings import TOKEN
+
+class YaUploader:
+    host = 'https://cloud-api.yandex.net/'
+
+    def __init__(self, token: str):
+        self.token = token
+
+    def get_headers(self):
+        return {'Content-Type': 'application/json', 'Authorization': f'OAuth {self.token}'}
+
+    def get_upload_link(self, file_name):
+        uri = 'v1/disk/resources/upload/'
+        url = self.host + uri
+        params = {'path': file_name}
+        response = requests.get(url, headers=self.get_headers(), params=params)
+        return response.json()['href']
+
+    def upload(self, file_path: str):
+        upload_link = self.get_upload_link(file_name)
+        response = requests.put(upload_link, headers=self.get_headers(), data=open(file_path, 'rb'))
+        return response
+
+
+if __name__ == '__main__':
+    path_to_file = r'C:\Users\Радиф\PycharmProjects\HWrequests\copy.json'
+    file_name= 'copy.json'
+    uploader = YaUploader(TOKEN)
+    uploader.get_upload_link(file_name)
+    uploader.upload(path_to_file)
